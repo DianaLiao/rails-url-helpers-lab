@@ -6,6 +6,19 @@ class StudentsController < ApplicationController
   end
 
   def show
+    set_student
+    if @student.active == true
+      @student_status = "active"
+    elsif @student.active == false
+      @student_status = "inactive"
+    end
+  end
+
+  def activate
+    set_student
+    @student.toggle!(:active)
+    # @student.save
+    redirect_to action: "show"
   end
 
   private
